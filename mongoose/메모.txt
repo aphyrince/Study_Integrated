@@ -1,0 +1,74 @@
+스키마
+    스키마 컬렉션 문서의 구조를 정의.
+    몽구스 스키마는 몽고DB 컬렉션에 직접 매핑됨.
+
+    스키마를 만들 때 각 필드와 해당 데이터 유형을 정의해야 함.
+    String
+    Number
+    Date
+    Buffer
+    Boolean
+    Mixed
+    ObjectId
+    Array
+    Int32
+    Decimal128
+    Double
+    Map
+
+모델
+    모델은 스키마를 가져와 컬렉션의 각 문서에 적용.
+    모델은 crud 작업과 같은 모든 문서 상호작용을 담당.
+    
+몽구스는 Node.js에서 몽고DB를 쉽게 사용할 수 있도록 도와주는 ODM 라이브러리.
+(Object Document Mapper)
+
+MongoDB의 데이터를 직접 다루는 대신, 타입스크립트의 인터페이스와 유사한 스키마를 정의하고,
+모델을 통해 데이터를 관리할 수 있음.
+
+Schema - 몽고 DB에 저장할 데이터의 구조 정의
+Model - Schema를 기반으로 생성한 데이터 관리 객체
+Document - 몽고 DB에 저장된 개별 데이터
+Query - 데이터 crud 수행하는 작업
+
+
+자주 사용하는 Mongoose 메서드
+    메서드	기능
+    find()	여러 데이터 조회
+    findOne()	데이터 하나 조회
+    findById()	ID로 조회
+    create()	데이터 생성
+    save()	Document 저장
+    findByIdAndUpdate()	ID로 수정
+    updateMany()	여러 데이터 수정
+    findByIdAndDelete()	ID로 삭제
+    deleteMany()	여러 데이터 삭제
+    countDocuments()	조건에 맞는 데이터 개수
+    exists()	데이터 존재 여부
+
+
+find()와 lean()의 차이
+    Mongoose를 사용하면서 알아두면 좋은 성능 관련 기능입니다.
+
+    일반적인 find()는 MongoDB에서 조회한 데이터를 Mongoose Document 객체로 변환합니다.
+        const books = await Book.find();
+
+
+    이 객체는 .save() 등의 Mongoose 기능을 사용할 수 있습니다.
+
+    반면 lean()을 사용하면 일반 JavaScript 객체로 반환합니다.
+        const books = await Book.find().lean();
+
+    차이점은 다음과 같습니다.
+        구분	find()	find().lean()
+        반환값	Mongoose Document	일반 객체
+        save()	가능	불가능
+        변경 추적	가능	불가능
+        메모리 사용	상대적으로 많음	상대적으로 적음
+        사용 목적	수정 및 저장	단순 조회
+
+    개인적으로 API 서버에서는 다음과 같이 구분하는 것을 추천합니다.
+        - GET 요청: lean() 사용
+        - POST 요청: create() 사용
+        - PUT/PATCH 요청: findByIdAndUpdate() 또는 save() 사용
+        - DELETE 요청: findByIdAndDelete() 사용
