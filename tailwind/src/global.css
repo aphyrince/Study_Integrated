@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-first: #421454;
+    --color-second: #802c62;
+    --color-third: #ff5b42;
+    --color-fourth: #ffd749;
+
+    --radius-card: 12px;
+    --spacing-layout: 24px;
+}
+
+.dark {
+    --color-first: #f9f7f7;
+    --color-second: #dbe2ef;
+    --color-third: #3f72af;
+    --color-fourth: #112d4e;
+}
+
+@utility scrollbar-hidden {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
