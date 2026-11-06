@@ -1,0 +1,7 @@
+각각의 역할은 다음과 같습니다.
+Flask	역할	Fastify와 비교
+request.args	Query Parameters	request.query
+request.view_args	URL Parameters	request.params
+request.get_json()	JSON Body	request.body
+request.headers	HTTP Headers	request.headers
+request.files	파일 업로드	request.file
